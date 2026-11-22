@@ -2,6 +2,8 @@
 
 [![Tests](https://github.com/PiyushaKadam07/Big-data-Hybrid-Indexing/actions/workflows/tests.yml/badge.svg)](https://github.com/PiyushaKadam07/Big-data-Hybrid-Indexing/actions/workflows/tests.yml)
 
+**[Try it live](https://hybrid-indexing.streamlit.app/)**: search 20,000 real arXiv papers in your browser. If the app has been idle, click the button to wake it up; it takes about a minute.
+
 A small search engine that compares three ways of searching documents spread across several servers: one central index, a fully distributed index, and a hybrid of the two. Built for CS63016 (Big Data) at Kent State University.
 
 ![Searching 20,000 arXiv papers for "differential privacy" across 16 servers](assets/demo_arxiv.png)
@@ -81,6 +83,8 @@ cd Big-data-Hybrid-Indexing
 pip install -r requirements.txt
 streamlit run app.py
 ```
+
+Or skip the setup and use the [live version](https://hybrid-indexing.streamlit.app/).
 
 ### The arXiv papers
 
