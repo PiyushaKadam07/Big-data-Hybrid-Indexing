@@ -105,13 +105,15 @@ def topic_label(category: str) -> str:
     return CATEGORY_NAMES.get(category, category)
 
 
-@st.cache_data(show_spinner=False)
+@st.cache_resource(show_spinner=False)
 def load_arxiv_papers() -> list[dict]:
     with open(ARXIV_PATH, encoding="utf-8") as f:
         return [json.loads(line) for line in f]
 
 
-@st.cache_resource(show_spinner=False)
+# Keep only the current index: each one for 20,000 papers takes about 200 MB,
+# and free hosting has about 1 GB.
+@st.cache_resource(show_spinner=False, max_entries=1)
 def build_system(num_nodes: int, strategy: str, source: str) -> HybridIndexingSystem:
     if source == "arxiv":
         docs = [Document(
@@ -148,7 +150,7 @@ with st.sidebar:
     st.markdown("---")
     st.markdown("Built by **Piyusha Kadam**")
 
-with st.spinner("Building the index (the first time takes a few seconds)…"):
+with st.spinner("Building the index (takes a few seconds after changing the setup)…"):
     system = build_system(num_nodes, strategy, source)
 
 

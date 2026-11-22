@@ -1,5 +1,7 @@
 # Hybrid Indexing for Distributed Search
 
+[![Tests](https://github.com/PiyushaKadam07/Big-data-Hybrid-Indexing/actions/workflows/tests.yml/badge.svg)](https://github.com/PiyushaKadam07/Big-data-Hybrid-Indexing/actions/workflows/tests.yml)
+
 A small search engine that compares three ways of searching documents spread across several servers: one central index, a fully distributed index, and a hybrid of the two. Built for CS63016 (Big Data) at Kent State University.
 
 ![Searching 20,000 arXiv papers for "differential privacy" across 16 servers](assets/demo_arxiv.png)
@@ -41,7 +43,7 @@ What the numbers say:
 
 The takeaway is to place data the way people search it, and to route on where the best answers are, not just on where the words are.
 
-To reproduce these numbers, make the arXiv sample and run `python benchmark.py`.
+To reproduce these numbers, run `python benchmark.py`.
 
 ### How it scales
 
@@ -80,20 +82,19 @@ pip install -r requirements.txt
 streamlit run app.py
 ```
 
-### Searching real arXiv papers
+### The arXiv papers
 
-The app can search a sample of real computer science papers from arXiv.
+The repo includes a sample of 20,000 computer science papers from arXiv (`data/arxiv_sample.jsonl`, about 30 MB), so the app searches real papers out of the box. Each result links to the paper on arxiv.org. Choose **20 sample sentences** in the sidebar for a small example you can follow by eye.
 
-1. Download the [arXiv dataset from Kaggle](https://www.kaggle.com/datasets/Cornell-University/arxiv). You only need `arxiv-metadata-oai-snapshot.json`.
-2. Make a sample of 20,000 computer science papers:
+Each paper's main arXiv category (machine learning, computer vision, databases and so on) is used as its topic for topic placement, and its submission month, read from the arXiv ID, is used for date placement and the year filter. Indexing 20,000 papers takes about 6 seconds and around 200 MB of memory.
 
-   ```bash
-   python load_arxiv.py path/to/arxiv-metadata-oai-snapshot.json --size 20000
-   ```
+To make a different sample, download the [arXiv dataset from Kaggle](https://www.kaggle.com/datasets/Cornell-University/arxiv) (you only need `arxiv-metadata-oai-snapshot.json`; it's several GB, so a Kaggle notebook is the easiest place to run this) and run:
 
-3. Start the app again. Choose **arXiv papers** in the sidebar. Each result links to the paper on arxiv.org.
+```bash
+python load_arxiv.py path/to/arxiv-metadata-oai-snapshot.json --size 20000
+```
 
-Each paper's main arXiv category (machine learning, computer vision, databases and so on) is used as its topic for topic placement, and its submission month, read from the arXiv ID, is used for date placement and the year filter. Indexing 20,000 papers takes a few seconds and a few hundred MB of memory.
+arXiv's metadata is released under CC0, so the sample can be shared freely.
 
 The app opens in your browser and has four pages:
 
@@ -102,7 +103,7 @@ The app opens in your browser and has four pages:
 - **What happens at scale:** reruns the experiment above on 500 to 5,000 documents.
 - **Look inside the servers:** what each server holds, and which servers have a given word.
 
-To run the tests:
+To run the tests (they also run automatically on GitHub after every push):
 
 ```bash
 pytest
