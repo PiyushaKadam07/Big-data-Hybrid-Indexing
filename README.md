@@ -2,7 +2,9 @@
 
 A small search engine that compares three ways of searching documents spread across several servers: one central index, a fully distributed index, and a hybrid of the two. Built for CS63016 (Big Data) at Kent State University.
 
-![Search page showing which servers each approach contacted](assets/search.png)
+![Searching 20,000 arXiv papers for "differential privacy" across 16 servers](assets/demo_arxiv.png)
+
+*Searching 20,000 real arXiv papers for "differential privacy" across 16 servers. Distributed search asks all 16. Hybrid asks 5: one server is ruled out because it doesn't have both words, and ten are skipped because nothing on them could beat the top 5. All three return the same results.*
 
 ## The idea
 
